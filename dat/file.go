@@ -1,4 +1,4 @@
-package dat
+package dat /* import "go-otserv.org/encoding/dat" */
 
 import (
 	bin "go-otserv.org/encoding/binary"

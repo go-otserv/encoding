@@ -1,4 +1,4 @@
-package binary
+package binary /* import "go-otserv.org/encoding/binary" */
 
 import (
 	"encoding/binary"

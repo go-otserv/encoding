@@ -1,5 +1,5 @@
 // Package binary provides abstraction for working with binary files.
-package binary
+package binary /* import "go-otserv.org/encoding/binary" */
 
 // Reader interface for binary files
 type Reader interface {

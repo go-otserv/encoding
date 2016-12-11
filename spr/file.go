@@ -1,4 +1,4 @@
-package spr
+package spr /* import "go-otserv.org/encoding/spr" */
 
 import (
 	"fmt"
