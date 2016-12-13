@@ -9,10 +9,10 @@ type File struct {
 	bin.BufferedFile
 	Signature       uint32
 	ContentRevision uint16
-	Items           []*Thing
-	Outfits         []*Thing
-	Effects         []*Thing
-	Missiles        []*Thing
+	Items           map[uint16]*Thing
+	Outfits         map[uint16]*Thing
+	Effects         map[uint16]*Thing
+	Missiles        map[uint16]*Thing
 	itemsCount      int
 	outfitsCount    int
 	effectsCount    int
@@ -50,10 +50,10 @@ func Open(path string) (*File, error) {
 	datfh.effectsCount = int(effectsCount + 1)
 	datfh.missilesCount = int(missilesCount + 1)
 
-	datfh.Items = make([]*Thing, 0, itemsCount+1)
-	datfh.Outfits = make([]*Thing, 0, outfitsCount+1)
-	datfh.Effects = make([]*Thing, 0, effectsCount+1)
-	datfh.Missiles = make([]*Thing, 0, missilesCount+1)
+	datfh.Items = make(map[uint16]*Thing)
+	datfh.Outfits = make(map[uint16]*Thing)
+	datfh.Effects = make(map[uint16]*Thing)
+	datfh.Missiles = make(map[uint16]*Thing)
 
 	return datfh, nil
 }
@@ -135,17 +135,17 @@ func (datfh *File) DeserializeWithProgress(prChan chan<- int, errChan chan<- err
 	doneChan <- true
 }
 
-// AppendThing appends given thing to proper list of (items|outfits|missiles|
+// AppendThing appends given thing to proper map of (items|outfits|missiles|
 // effects) depending of thing Type
 func (datfh *File) AppendThing(thing *Thing) {
 	switch thing.Type {
 	case ITEM:
-		datfh.Items = append(datfh.Items, thing)
+		datfh.Items[thing.ID] = thing
 	case OUTFIT:
-		datfh.Outfits = append(datfh.Outfits, thing)
+		datfh.Outfits[thing.ID] = thing
 	case EFFECT:
-		datfh.Effects = append(datfh.Effects, thing)
+		datfh.Effects[thing.ID] = thing
 	case MISSILE:
-		datfh.Missiles = append(datfh.Missiles, thing)
+		datfh.Missiles[thing.ID] = thing
 	}
 }
