@@ -31,7 +31,8 @@ func NewNode() *Node {
 	return &Node{}
 }
 
-func (node *Node) BufLeft() int {
+// Len returns number of unread bytes in buffer
+func (node *Node) Len() int {
 	return node.buf.Len()
 }
 
