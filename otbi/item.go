@@ -13,7 +13,7 @@ type Item struct {
 	ServerID   uint16      `xml:"id,attr"`
 	ClientID   uint16      `xml:"cid,attr"`
 	Type       string      `xml:"type,attr"`
-	Name       string      `xml:"name,attr"`
+	Name       string      `xml:"name,attr,omitempty"`
 	Attributes []Attribute `xml:"Attribute,omitempty"`
 	Flags      []*Flag     `xml:"Flag,omitempty"`
 }
@@ -101,6 +101,13 @@ func (i *Item) deserializeAttributes(node *otb.Node) error {
 				return err
 			}
 			i.Attributes = append(i.Attributes, NewWareID(wareID))
+		case OpName:
+			nameLen := int(dataLen)
+			name := make([]byte, nameLen, nameLen)
+			if err := node.Read(name); err != nil {
+				return err
+			}
+			i.Name = string(name)
 		default:
 			fmt.Fprintf(os.Stderr, "UNKNOWN ATTR: 0x%x\n", attr)
 			var i uint16

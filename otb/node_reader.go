@@ -112,3 +112,10 @@ func (no *Node) UInt64() (uint64, error) {
 	}
 	return out, nil
 }
+
+func (no *Node) Read(out []byte) error {
+	if _, err := no.buf.Read(out); err != nil {
+		return err
+	}
+	return nil
+}
