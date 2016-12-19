@@ -23,9 +23,10 @@ type Item struct {
 }
 
 type Attribute struct {
-	XMLName xml.Name `xml:"attribute"`
-	Key     string   `xml:"key,attr"`
-	Value   string   `xml:"value,attr,omitempty"`
+	XMLName    xml.Name    `xml:"attribute"`
+	Key        string      `xml:"key,attr"`
+	Value      string      `xml:"value,attr,omitempty"`
+	Attributes []Attribute `xml:"attribute,omitempty"`
 }
 
 func Open(path string) (*Items, error) {
@@ -40,5 +41,5 @@ func Open(path string) (*Items, error) {
 	if err != nil {
 		return nil, err
 	}
-	return items, err
+	return items, nil
 }
