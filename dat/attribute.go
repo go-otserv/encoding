@@ -44,7 +44,7 @@ func (attr GroundBorder) attrName() string { return attr.Name }
 
 // NewGroundBorder creates new GroundBorder attribute
 func NewGroundBorder() *GroundBorder {
-	return &GroundBorder{}
+	return &GroundBorder{AttributeBase{Name: "groundBorder"}}
 }
 
 // OnBottom attribute
